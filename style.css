@@ -1,3 +1,29 @@
 #root {
   color: red;
 }
+#mainContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+#title {
+  width: 180px;
+  border: 3px solid grey;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 20px;
+  color: black;
+}
+#list {
+  list-style: none;
+  width: 250px;
+  border: 3px solid grey;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 20px;
+  color: black;
+  text-align: justify;
+}
+#summary {
+  color: black;
+}
+
