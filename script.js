@@ -59,6 +59,15 @@ const filteredEpisodes = allTvEpisodes.filter((character) => {
     });
      displayEpisodes(filteredEpisodes);
 });
+const loadAllTvEpisodes = async () => {
+    try {
+        const res = await fetch(data/episodes.js);
+        allTvEpisodes = await res.json();
+        displayEpisodes(allTvEpisodes);
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 const displayEpisodes = (characters) => {
     const htmlString = characters
