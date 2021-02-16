@@ -46,20 +46,6 @@ function setup() {
 }
 function myFunction() {
   // Declare variables
-
-  
-
-  // Loop through all list items, and hide those who don't match the search query
-  
-}
-
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
-}
-
-window.onload = setup;
-
 const mainContainer = document.getElementById('mainContainer');
 const searchBar = document.getElementById('searchBar');
 let allTvEpisodes = [];
@@ -90,4 +76,16 @@ const displayEpisodes = (characters) => {
 };
 
 loadCharacters();
+  
+
+  // Loop through all list items, and hide those who don't match the search query
+  
+}
+
+function makePageForEpisodes(episodeList) {
+  const rootElem = document.getElementById("root");
+  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+}
+
+window.onload = setup;
 
