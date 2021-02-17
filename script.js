@@ -53,15 +53,14 @@ searchBar.addEventListener('keyup', (e) => {
 const searchString = e.target.value.toLowerCase();
 const filteredEpisodes = allTvEpisodes.filter((character) => {
         return (
-            character.name.toLowerCase().includes(searchString) ||
-            character.house.toLowerCase().includes(searchString)
+            character.name.toLowerCase().includes(searchString)
         );
     });
      displayEpisodes(filteredEpisodes);
 });
 const loadAllTvEpisodes = async () => {
     try {
-        const res = await fetch(data/episodes.js);
+        const res = await fetch("data/episodes.js");
         allTvEpisodes = await res.json();
         displayEpisodes(allTvEpisodes);
     } catch (err) {
@@ -84,7 +83,7 @@ const displayEpisodes = (characters) => {
     mainContainer.innerHTML = htmlString;
 };
 
-loadCharacters();
+loadAllTvEpisodes();
   
 
   // Loop through all list items, and hide those who don't match the search query
