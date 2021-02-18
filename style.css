@@ -1,47 +1,63 @@
 #root {
   color: red;
 }
-#mainContainer {
+
+#myInput {
   display: flex;
-  flex-wrap: wrap;
-}
-#title {
+  flex-direction: column;
+  justify-content: center;
   width: 180px;
   border: 3px solid grey;
   border-radius: 6px;
   padding: 10px;
   margin: 20px;
   color: black;
+  text-align: center;
 }
-#list {
+#mainContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+h4 {
+  width: 180px;
+  height: 33px;
+  border: 3px solid grey;
+  border-radius: 6px;
+  padding: 15px;
+  margin: 20px;
+  color: black;
+  text-align: center;
+}
+ul li {
   list-style: none;
   width: 250px;
-  border: 3px solid grey;
+  border: 3px solid blue;
   border-radius: 6px;
   padding: 10px;
   margin: 20px;
   color: black;
-  text-align: justify;
+  text-align: left;
 }
-#summary {
-  color: black;
+/* using class to hide non result  */
+.hidden {
+  display: none;
 }
-
-#searchBar {
-    width: 30%;
-    height: 32px;
-    border-radius: 3px;
-    border: 1px solid #eaeaea;
-    padding: 5px 10px;
-    font-size: 12px;
+#topContainer, #search {
+  display: flex;
 }
-#searchWrapper {
-    position: relative;
+#selectOption {
+  height: fit-content;
+  width: 300px;
 }
-
-#searchWrapper::after {
-    content: '🔍';
-    position: absolute;
-    top: 7px;
-    right: 15px;
+option {
+  width: 400px;
+  padding-left: 20px;
+  margin-right: 20px;
+}
+#result {
+  font-size: 1.5rem;
+  margin-left: 20px;
+}
+#disclaimer {
+  text-align: center;
 }

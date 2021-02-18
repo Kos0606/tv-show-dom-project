@@ -6,89 +6,65 @@ let search = document.getElementById('search');
 let mainContainer = document.createElement('ul');
 mainContainer.id = 'mainContainer';
 root.appendChild(mainContainer);
-// let input = document.createElement('input');
-// input.type = 'text';
-// input.id = 'myInput';
-// input.onkeyup = 'mySearchFunction()';
-// input.placeholder = 'Search';
-// search.appendChild(input);
 function pad(num, size) {
   num = num.toString();
   while (num.length < size) num = "0" + num;
   return num;
 }
 
-
-
+// level 100 
 function setup() {
-  // const allEpisodes = getAllEpisodes();
-  // makePageForEpisodes(allEpisodes);
-  // let root = document.getElementById('root');
-  // level 100 
-  allEpisodes.forEach(elem => {
-    // let container = document.createElement('container');
-    let list = document.createElement('li'); 
-    let title = document.createElement('p'); // display title
-    let img = document.createElement('img'); // display image
-    let summary = document.createElement('p'); // display summary
-    list.id = 'list';
+   
+allEpisodes.forEach(elem => {
+    let list = document.createElement('li');
+    let title = document.createElement('h4'); // create display title tag
+    let img = document.createElement('img'); // create display image tag
     title.id = 'title';
     img.id = 'img';
-    summary.id = 'summary';
     title.innerText = `${elem.name} - S${pad(elem.season, 2)}E${pad(elem.number,2)}`;
     img.src = `${elem.image.medium}`;
-    summary.innerHTML = elem.summary;
-    list.appendChild(title);
-    list.appendChild(img);
-    list.appendChild(summary);
+    list.innerHTML = elem.summary;
+    list.insertBefore(title, list.childNodes[0]);
+    list.insertBefore(img, list.childNodes[1]);
     mainContainer.appendChild(list);
   })
 }
-function myFunction() {
+  
+  // level 200 (live search)
+function mySearchFunction() {
   // Declare variables
-const mainContainer = document.getElementById('mainContainer');
-const searchBar = document.getElementById('searchBar');
-let allTvEpisodes = [];
-searchBar.addEventListener('keyup', (e) => {
-const searchString = e.target.value.toLowerCase();
-const filteredEpisodes = allTvEpisodes.filter((character) => {
-        return (
-            character.name.toLowerCase().includes(searchString)
-        );
-    });
-     displayEpisodes(filteredEpisodes);
-});
-const loadAllTvEpisodes = async () => {
-    try {
-        const res = await fetch("data/episodes.js");
-        allTvEpisodes = await res.json();
-        displayEpisodes(allTvEpisodes);
-    } catch (err) {
-        console.error(err);
+  let input, filter, ul, li, title, summaryNoP, i;
+  // User Input
+  input = document.getElementById("myInput");
+  // Filter, makes search not case sensitive
+  filter = input.value.toUpperCase();
+  // Grabs the parent element by id
+  ul = document.getElementById("mainContainer");
+  // Individual item on list
+  li = ul.getElementsByTagName("li");
+  console.log(li.length);
+  // Treats lists items like an array, where each item can be accessed through      it's index
+  for (i = 0; i < allEpisodes.length; i++) {
+    title = allEpisodes[i].name;
+    summaryNoP = allEpisodes[i].summary;
+    summaryNoP = summaryNoP.replace(/(<p>|<\/p>)/g, ""); // regex to remove <p> tag from data
+    // Iterate over each list item to see if the value of the input, ignoring         case, matches the inner text or inner html of the item.
+    if (summaryNoP.toUpperCase().indexOf(filter) > -1 || title.toUpperCase().indexOf(filter) > -1) {
+      // Displays list items that are a match, and nothing if no match
+      li[i].classList.remove('hidden');
+    } else {
+      li[i].classList.add('hidden');
     }
-}
-
-const displayEpisodes = (characters) => {
-    const htmlString = characters
-        .map((character) => {
-            return `
-            <li id ="list">
-                <h2>Title: ${elem.name} - S${pad(elem.season, 2)}E${pad(elem.number,2)}</h2>
-                <p>Summary: ${elem.summary}</p>
-                <img src= ${elem.image.medium}></img>
-            </li>
-        `;
-        })
-        .join('');
-    mainContainer.innerHTML = htmlString;
-};
-
-loadAllTvEpisodes();
+  }
+  // display search's result number
+  document.getElementById('result').textContent = `Displaying ${document.querySelectorAll('#mainContainer li:not(.hidden)').length}/${allEpisodes.length} episodes`;
+} 
+  
   
 
   // Loop through all list items, and hide those who don't match the search query
   
-}
+
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
