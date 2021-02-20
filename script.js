@@ -38,6 +38,7 @@ function mySearchFunction() {
   input = document.getElementById("myInput");
   // Filter, makes search not case sensitive
   filter = input.value.toUpperCase();
+  console.log("filter", filter);
   // Grabs the parent element by id
   ul = document.getElementById("mainContainer");
   // Individual item on list
@@ -57,7 +58,7 @@ function mySearchFunction() {
     }
   }
   // display search's result number
-  document.getElementById('result').textContent = `Displaying ${document.querySelectorAll('#mainContainer li:not(.hidden)').length}/${allEpisodes.length} episodes`;
+  //document.getElementById('result').textContent = `Displaying ${document.querySelectorAll('#mainContainer li:not(.hidden)').length}/${allEpisodes.length} episodes`;
 } 
   
   
@@ -68,7 +69,7 @@ function mySearchFunction() {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  //rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 }
 
 window.onload = setup;
