@@ -11,6 +11,26 @@ function pad(num, size) {
   while (num.length < size) num = "0" + num;
   return num;
 }
+let form = document.createElement("form");
+form.class = "Selection";
+document.body.appendChild(form);
+let label = document.createElement("label");
+label.for ="episodes";
+label.id = "allEpisodes";
+label.innerHTML = "Episodes Selector";
+form.appendChild(label);
+let select = document.createElement("select");
+select.name = "episodes";
+select.id = "episodes";
+form.appendChild(select);
+for( let i =0; i < allEpisodes.length; i++) {
+  let option = document.createElement("option");
+  select.appendChild(option);
+  let elem = allEpisodes[i];
+  option.value = `${elem.name} - S${pad(elem.season, 2)}E${pad(elem.number,2)}`;
+
+}
+
 
 // level 100 
 function setup() {
@@ -63,6 +83,29 @@ function mySearchFunction() {
   
   
 //Level 300 (Add an Episode Selector)
+//let form = document.createElement("form");
+//form.class = "Selection";
+//document.body.appendChild(form);
+//let label = document.createElement("label");
+//label.for ="episodes";
+//label.innerHTML = "Episodes Selector";
+//form.appendChild(label);
+//let select = document.createElement("select");
+//select.name = "episodes";
+//select.id = "episodes";
+//form.appendChild(select);
+//let option = document.createElement("option");
+//option.value = allEpisodes.forEach(elem => {`${elem.name} - S${pad(elem.season, 2)}E${pad(elem.number,2)}`;
+//for( let i =0; i < allEpisodes.length; i++) {
+  //let option = document.createElement("option");
+  //select.appendChild(option);
+  //let elem = allEpisodes[i];
+  //option.value = `${elem.name} - S${pad(elem.season, 2)}E${pad(elem.number,2)}`;
+
+//}
+
+//})
+//select.appendChild(option);
 
   // Loop through all list items, and hide those who don't match the search query
   
@@ -70,7 +113,7 @@ function mySearchFunction() {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  //rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+//rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 }
 
 window.onload = setup;
