@@ -11,6 +11,7 @@ function pad(num, size) {
   while (num.length < size) num = "0" + num;
   return num;
 }
+//Level 300
 let form = document.createElement("form");
 form.class = "Selection";
 document.body.appendChild(form);
@@ -117,4 +118,20 @@ function makePageForEpisodes(episodeList) {
 }
 
 window.onload = setup;
+
+//Level 350
+{
+    fetch( 'https://xkcd.now.sh/?comic=latest' )
+        .then( response => response.json() )
+        .then( function ( data )
+        {
+            console.log( data );
+            let image = document.querySelector( 'img' );
+            image.src = data.img;
+        } )
+        .catch( ( error ) =>
+        {
+            console.log( error );
+    })
+}
 
