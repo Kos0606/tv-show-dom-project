@@ -63,4 +63,14 @@ option {
 }
 #allEpisodes {
   width: 100px;
+  padding: 30px;
 }
+
+#episodes {
+  width: 100px;
+  color: red;
+  
+
+}
+
+

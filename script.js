@@ -1,4 +1,5 @@
 //You can edit ALL of the code here
+const shows = getAllShows();
 const allEpisodes = getAllEpisodes();
 makePageForEpisodes(allEpisodes);
 let root = document.getElementById('root');
@@ -26,12 +27,82 @@ select.id = "episodes";
 form.appendChild(select);
 for( let i =0; i < allEpisodes.length; i++) {
   let option = document.createElement("option");
+  option.id = "option";
   select.appendChild(option);
   let elem = allEpisodes[i];
   option.value = `${elem.name} - S${pad(elem.season, 2)}E${pad(elem.number,2)}`;
+  
 
 }
+//Level 400
+// show drop down
+function ShowsDropdown(){
+  let choice = document.getElementById( 'episodes' );
+  shows.forEach( ( show ) =>
+  { 
+    let chooseFrom  = document.getElementById( 'option' );
+    option.innerHTML = shows.name;
+  } );
+  select.addEventListener( 'change', (e) =>
+  {
+    let showId = e.target.value;
+      updateEpisode(showId)
+  })
+}
 
+//Level 350 and 500
+
+function populateShowListings()
+{
+  shows.forEach( (show) =>
+  {
+    let container = document.createElement( 'div' );
+    container.id = show.id;
+    let title = document.createElement( 'h3' );
+    title.innerHTML = show.name;
+    container.appendChild( title );
+    if ( show.image != null )
+    {
+      let img = document.createElement( 'img' );
+      img.src = show.image.medium;
+      container.appendChild( img );
+    }
+    let summary = document.createElement( 'div' );
+    summary.innerHTML = show.summary;
+    container.appendChild( summary );
+    let genres = document.createElement( 'p' );
+    genres.innerHTML = show.genres.join();
+    container.appendChild( genres );
+    let status = document.createElement( 'p' );
+    status.innerHTML = `STATUS: ${show.status}`;
+    container.appendChild( status );
+    let rating = document.createElement( 'p' );
+    rating.innerHTML = show.rating.average;
+    container.appendChild( rating );
+    let runtime = document.createElement( 'p' );
+    runtime.innerHTML = show.runtime;
+    container.appendChild( runtime );
+    let showsView = document.createElement("showsView");
+    showsView.appendChild( container );
+    container.addEventListener( 'click', ( e ) =>
+    {
+      const showId = e.currentTarget.id;
+      updateEpisode( showId );
+      showsView.style.display = 'none';
+      
+    })
+  })
+}
+function updateEpisode(showId)
+{
+  fetch( `https://api.tvmaze.com/shows/${showId}/episodes` )
+    .then( response => response.json() )
+    .then( (data) => {
+      const allEpisodes = data;
+      populateEpisodeDropdown( allEpisodes );
+      makePageForEpisodes( allEpisodes );
+    } )
+}
 
 // level 100 
 function setup() {
@@ -119,19 +190,7 @@ function makePageForEpisodes(episodeList) {
 
 window.onload = setup;
 
-//Level 350
-{
-    fetch( 'https://xkcd.now.sh/?comic=latest' )
-        .then( response => response.json() )
-        .then( function ( data )
-        {
-            console.log( data );
-            let image = document.querySelector( 'img' );
-            image.src = data.img;
-        } )
-        .catch( ( error ) =>
-        {
-            console.log( error );
-    })
-}
+
+
+
 
