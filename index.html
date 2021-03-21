@@ -9,8 +9,12 @@
   </head>
 
   <body>
-    <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search">
+    
     <div id="root">
+      <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search">
+      <select id = "mySelect" onChange = "mySelectorFunction()">
+        <option value = "">All episodes</option>
+      </select>
     </div>
 
 

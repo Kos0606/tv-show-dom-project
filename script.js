@@ -6,7 +6,6 @@ let allEpisodes;
 function setup() {
   allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
-
 }
 
 function makePageForEpisodes(episodeList) {
@@ -17,12 +16,13 @@ function makePageForEpisodes(episodeList) {
   root.appendChild(mainContainer);
   episodeList.forEach((episode) => {
     displayEpisode(episode);
-  })
-  
+  });
 }
 
 function displayEpisode(episode) {
   // rootElem.textContent = episode.name;
+
+  const select = document.getElementById("mySelect");
   let list = document.createElement("li");
   episode.display = list;
   let title = document.createElement("h4"); // create display title tag
@@ -37,6 +37,23 @@ function displayEpisode(episode) {
   list.insertBefore(title, list.childNodes[0]);
   list.insertBefore(img, list.childNodes[1]);
   mainContainer.appendChild(list);
+
+  //Level 300
+  select.appendChild(
+    createAnOption(episode.name, episode.season, episode.number)
+  );
+}
+//Level 300
+
+function createAnOption(name, season, number) {
+  const option = document.createElement("option");
+  option.value = `${name} - S${season
+    .toString()
+    .padStart(2, "0")}E${number.toString().padStart(2, "0")}`;
+  option.innerText = `S${season
+    .toString()
+    .padStart(2, "0")}E${number.toString().padStart(2, "0")} - ${name}`;
+  return option;
 }
 
 //level 200 (live search)
@@ -62,9 +79,28 @@ function mySearchFunction() {
     } else {
       episode.display.classList.add("hidden");
     }
-  }); 
+  });
   // display search's result number
   //document.getElementById('result').textContent = `Displaying ${document.querySelectorAll('#mainContainer li:not(.hidden)').length}/${allEpisodes.length} episodes`;
-} 
+}
+
+// Level 300
+
+function mySelectorFunction() {
+  // Declare variables
+  const select = document.getElementById("mySelect");
+  const selectedOption = select.value;
+  const episodeList = [...document.querySelector("#mainContainer").children];
+  episodeList.forEach((episode, index) => {
+    title = episode.querySelector("h4").innerText;
+
+    if (title === selectedOption) {
+      // Displays list items that are a match, and nothing if no match
+      allEpisodes[index].display.classList.remove("hidden");
+    } else {
+      allEpisodes[index].display.classList.add("hidden");
+    }
+  });
+}
 
 window.onload = setup;
