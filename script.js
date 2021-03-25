@@ -3,9 +3,21 @@ let rootElem;
 let mainContainer;
 let allEpisodes;
 
+// function setup() {
+//   allEpisodes = getAllEpisodes();
+//   makePageForEpisodes(allEpisodes);
+// }
+
+
+//Level 350
 function setup() {
-  allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  fetch(`https://api.tvmaze.com/shows/84/episodes`)
+    .then((response) => response.json())
+    .then((data) => {
+      allEpisodes = data;
+      
+      makePageForEpisodes(allEpisodes);
+    });
 }
 
 function makePageForEpisodes(episodeList) {
@@ -92,13 +104,17 @@ function mySelectorFunction() {
   const selectedOption = select.value;
   const episodeList = [...document.querySelector("#mainContainer").children];
   episodeList.forEach((episode, index) => {
-    title = episode.querySelector("h4").innerText;
-
-    if (title === selectedOption) {
-      // Displays list items that are a match, and nothing if no match
+    if (selectedOption === "") {
       allEpisodes[index].display.classList.remove("hidden");
     } else {
-      allEpisodes[index].display.classList.add("hidden");
+      title = episode.querySelector("h4").innerText;
+
+      if (title === selectedOption) {
+        // Displays list items that are a match, and nothing if no match
+        allEpisodes[index].display.classList.remove("hidden");
+      } else {
+        allEpisodes[index].display.classList.add("hidden");
+      }
     }
   });
 }
