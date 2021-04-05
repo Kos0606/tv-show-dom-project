@@ -6,9 +6,7 @@ const showsPage = document.getElementById("show-root");
 const showsSelectInput = document.getElementById("mySelect-show");
 const showsSearchInput = document.getElementById("myInput-show");
 let showsData = [];
-let showsId =83;
-
-
+let showsId = 83;
 
 // function setup() {
 //   allEpisodes = getAllEpisodes();
@@ -69,8 +67,8 @@ function makePageForShows(object) {
     showsOption.innerHTML = show.name;
     showsSelectInput.appendChild(showsOption);
 
-    showsSelectInput.addEventListener("change", function () { 
-      if(show.name === this.value) {
+    showsSelectInput.addEventListener("change", function () {
+      if (show.name === this.value) {
         showsId = show.id;
         setup();
       }
@@ -80,7 +78,7 @@ function makePageForShows(object) {
   });
 }
 
-function showsSearch () {
+function showsSearch() {
   showsSearchInput.addEventListener("keyup", (e) => {
     let searchValue = e.target.value.toLowerCase();
     let searchResult = showsData.filter((show) => {
@@ -89,13 +87,13 @@ function showsSearch () {
         show.summary.toLowerCase().includes(searchValue) ||
         show.genres.toString().toLowerCase().includes(searchValue)
       );
-    })
-    while(showsPage.firstChild) {
+    });
+    while (showsPage.firstChild) {
       showsPage.removeChild(showsPage.firstChild);
     }
     makePageForShows(searchResult);
     console.log(searchResult);
-  })
+  });
 }
 
 function makePageForEpisodes(episodeList) {
@@ -123,14 +121,13 @@ function displayEpisode(episode) {
   title.innerText = `${episode.name} - S${episode.season
     .toString()
     .padStart(2, "0")}E${episode.number.toString().padStart(2, "0")}`;
-    if(episode.image) {
-       img.src = `${episode.image.medium}`;
-    } else {
-      img.src =
-        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Pseudolasius_dodo_casent0000069_profile_1.jpg";
-    }
-    
- 
+  if (episode.image) {
+    img.src = `${episode.image.medium}`;
+  } else {
+    img.src =
+      "https://upload.wikimedia.org/wikipedia/commons/f/f7/Pseudolasius_dodo_casent0000069_profile_1.jpg";
+  }
+
   list.innerHTML = episode.summary;
   list.insertBefore(title, list.childNodes[0]);
   list.insertBefore(img, list.childNodes[1]);
