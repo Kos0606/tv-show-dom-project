@@ -1,4 +1,5 @@
 #root {
+  display: none;
   color: red;
 }
 
@@ -42,7 +43,8 @@ ul li {
 .hidden {
   display: none;
 }
-#topContainer, #search {
+#topContainer,
+#search {
   display: flex;
 }
 #selectOption {
@@ -69,8 +71,24 @@ option {
 #episodes {
   width: 100px;
   color: red;
-  
-
 }
 
+.nav-link {
+  padding: 0.7% 0%;
+  background-color: blue;
+  text-decoration: none;
+  text-align: center;
+  margin: 12px 0 0 0;
+  width: 7em;
+  font-size: large;
+  color: aliceblue;
+  font-weight: 700;
+  display: block;
+  position: relative;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
+.nav-link:hover {
+  background-color: rgb(71, 71, 250);
+}

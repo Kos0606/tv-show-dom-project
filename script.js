@@ -1,27 +1,104 @@
 //You can edit ALL of the code here
-let rootElem;
+const rootElem = document.getElementById("root");
 let mainContainer;
 let allEpisodes;
+const showsPage = document.getElementById("show-root");
+const showsSelectInput = document.getElementById("mySelect-show");
+const showsSearchInput = document.getElementById("myInput-show");
+let showsData = [];
+let showsId =83;
+
+
 
 // function setup() {
 //   allEpisodes = getAllEpisodes();
 //   makePageForEpisodes(allEpisodes);
 // }
 
+//Level 400
+function showsPageSetup() {
+  fetch(`https://api.tvmaze.com/shows`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      showsData = data;
+      makePageForShows(data);
+      showsSearch(data);
+    });
+}
 
 //Level 350
 function setup() {
-  fetch(`https://api.tvmaze.com/shows/84/episodes`)
+  fetch(`https://api.tvmaze.com/shows/${showsId}/episodes`)
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       allEpisodes = data;
-      
+
       makePageForEpisodes(allEpisodes);
     });
 }
 
+function makePageForShows(object) {
+  object.forEach((show) => {
+    let showsDiv = document.createElement("div");
+    showsPage.appendChild(showsDiv);
+    showName = document.createElement("h2");
+    showName.innerHTML = show.name;
+    showsDiv.appendChild(showName);
+    image = document.createElement("img");
+    image.src = show.image.medium;
+    showsDiv.appendChild(image);
+    let genres = document.createElement("h4");
+    genres.innerHTML = `Genres: ${show.genres}`;
+    showsDiv.appendChild(genres);
+    let status = document.createElement("h4");
+    status.innerHTML = `Status: ${show.status}`;
+    showsDiv.appendChild(status);
+    let rating = document.createElement("h4");
+    rating.innerHTML = `Rating: ${show.rating.average}`;
+    showsDiv.appendChild(rating);
+    let runtime = document.createElement("h4");
+    runtime.innerHTML = `Runtime: ${show.runtime}`;
+    showsDiv.appendChild(runtime);
+    let summary = document.createElement("p");
+    summary.innerHTML = show.summary;
+    showsDiv.appendChild(summary);
+    // Shows option
+    let showsOption = document.createElement("option");
+    showsOption.innerHTML = show.name;
+    showsSelectInput.appendChild(showsOption);
+
+    showsSelectInput.addEventListener("change", function () { 
+      if(show.name === this.value) {
+        showsId = show.id;
+        setup();
+      }
+      showsPage.style.display = "none";
+      rootElem.style.display = "block";
+    });
+  });
+}
+
+function showsSearch () {
+  showsSearchInput.addEventListener("keyup", (e) => {
+    let searchValue = e.target.value.toLowerCase();
+    let searchResult = showsData.filter((show) => {
+      return (
+        show.name.toLowerCase().includes(searchValue) ||
+        show.summary.toLowerCase().includes(searchValue) ||
+        show.genres.toString().toLowerCase().includes(searchValue)
+      );
+    })
+    while(showsPage.firstChild) {
+      showsPage.removeChild(showsPage.firstChild);
+    }
+    makePageForShows(searchResult);
+    console.log(searchResult);
+  })
+}
+
 function makePageForEpisodes(episodeList) {
-  rootElem = document.getElementById("root");
   // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
   mainContainer = document.createElement("ul");
   mainContainer.id = "mainContainer";
@@ -31,6 +108,8 @@ function makePageForEpisodes(episodeList) {
   });
 }
 
+const showsLink = document.getElementById("navigation-link");
+showsLink.setAttribute("href", window.location.href);
 function displayEpisode(episode) {
   // rootElem.textContent = episode.name;
 
@@ -44,7 +123,14 @@ function displayEpisode(episode) {
   title.innerText = `${episode.name} - S${episode.season
     .toString()
     .padStart(2, "0")}E${episode.number.toString().padStart(2, "0")}`;
-  img.src = `${episode.image.medium}`;
+    if(episode.image) {
+       img.src = `${episode.image.medium}`;
+    } else {
+      img.src =
+        "https://upload.wikimedia.org/wikipedia/commons/f/f7/Pseudolasius_dodo_casent0000069_profile_1.jpg";
+    }
+    
+ 
   list.innerHTML = episode.summary;
   list.insertBefore(title, list.childNodes[0]);
   list.insertBefore(img, list.childNodes[1]);
@@ -119,4 +205,4 @@ function mySelectorFunction() {
   });
 }
 
-window.onload = setup;
+window.onload = showsPageSetup;
