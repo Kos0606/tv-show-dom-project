@@ -45,6 +45,17 @@ function makePageForShows(object) {
     showName = document.createElement("h2");
     showName.innerHTML = show.name;
     showsDiv.appendChild(showName);
+    let aTag = document.createElement("a");
+    aTag.setAttribute("href", "#");
+    aTag.setAttribute("id", `${show.id}`);
+    showName.appendChild(aTag);
+
+    showName.addEventListener("click", () => {
+      showsId = aTag.id;
+      setup();
+      showsPage.style.display = "none";
+      rootElem.style.display = "block";
+    });
     image = document.createElement("img");
     image.src = show.image.medium;
     showsDiv.appendChild(image);
@@ -64,6 +75,14 @@ function makePageForShows(object) {
     summary.innerHTML = show.summary;
     showsDiv.appendChild(summary);
     // Shows option
+
+    let sorted = object.sort((a, b) => {
+      let a1 = a.name.toLowerCase();
+      let b1 = b.name.toLowerCase();
+      return a1 < b1 ? -1 : a1 > b1 ? 1 : 0;
+    });
+    console.log(sorted);
+
     let showsOption = document.createElement("option");
     showsOption.innerHTML = show.name;
     showsSelectInput.appendChild(showsOption);
@@ -80,6 +99,7 @@ function makePageForShows(object) {
 }
 
 const showsContainer = document.getElementById("shows-div");
+
 function showsSearch() {
   showsSearchInput.addEventListener("keyup", (e) => {
     let searchValue = e.target.value.toLowerCase();
@@ -110,6 +130,7 @@ function makePageForEpisodes(episodeList) {
 
 const showsLink = document.getElementById("navigation-link");
 showsLink.setAttribute("href", window.location.href);
+
 function displayEpisode(episode) {
   // rootElem.textContent = episode.name;
 
