@@ -20,8 +20,8 @@ function showsPageSetup() {
     .then((data) => {
       console.log(data);
       showsData = data;
-      makePageForShows(data);
-      showsSearch(data);
+      makePageForShows(showsData);
+      showsSearch(showsData);
     });
 }
 
@@ -40,6 +40,7 @@ function setup() {
 function makePageForShows(object) {
   object.forEach((show) => {
     let showsDiv = document.createElement("div");
+    showsDiv.setAttribute("id", "shows-div");
     showsPage.appendChild(showsDiv);
     showName = document.createElement("h2");
     showName.innerHTML = show.name;
@@ -78,6 +79,7 @@ function makePageForShows(object) {
   });
 }
 
+const showsContainer = document.getElementById("shows-div");
 function showsSearch() {
   showsSearchInput.addEventListener("keyup", (e) => {
     let searchValue = e.target.value.toLowerCase();
