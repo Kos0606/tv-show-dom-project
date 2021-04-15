@@ -79,7 +79,7 @@ function makePageForShows(object) {
     let sorted = object.sort((a, b) => {
       let a1 = a.name.toLowerCase();
       let b1 = b.name.toLowerCase();
-      return a1 < b1 ? -1 : a1 > b1 ? 1 : 0;
+      return (a1 < b1) ? -1 : (a1 > b1) ? 1 : 0;
     });
     console.log(sorted);
 
